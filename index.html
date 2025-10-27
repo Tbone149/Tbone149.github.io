@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		
+		.fans{
+		
+			width:200px;
+			height:200px;
+			background-image: url(fan.png);
+			background-size: contain;
+			background-repeat: no-repeat;
+
+			animation-name: fanSpin;
+			animation-duration: .5s;
+			animation-iteration-count: infinite;
+			animation-timing-function: cubic-bezier(1, 1, 1, 1);
+
+		}
+
+		@keyframes fanSpin{
+
+			0%{
+				transform: rotate(360deg);
+			}
+			100%{
+				transform: rotate(0deg);
+			}
+
+		}
+
+		#plane{
+			background-image: url(plane.jpeg);
+			width: 75%;
+			height: 50%;
+		}
+
+
+	</style>
+</head>
+<body>
+
+<a href="projects.html">
+<div id="menuLeft" class="fans"></div>
+</a>
+
+<a href="journal.html">
+<div id="menuRight" class="fans"></div>
+</a>
+
+
+<div id="welcomeBanner">Welcome to Theo's website!</div>
+
+<div id="plane"></div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
