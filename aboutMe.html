@@ -15,6 +15,8 @@
 	top: 0px;
 	right: 0px;
 	bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #title {
@@ -22,7 +24,14 @@
 	text-align: center;
 }
 
-*{
+.text{
+	text-align: center;
+	margin-left: 15%;
+	margin-right: 15%;
+	font-family: optima;
+}
+
+#home{
 	text-align: center;
 }
 
@@ -31,7 +40,7 @@
 </head>
 <body>
 
-<div>
+<div id="home">
 	<a href="index.html">Home</a>
 </div>
 <div id="title">About Me/Journal</div>
@@ -39,6 +48,17 @@
 
 <div id="open"></div>
 
+<p class="text"> 10/30: First journal entry. So far I've made this basic website and published it on github through a series of terminal programs. I still don't know how to make the plane work on the home page but I will get there. I have all my pages, though, I just need to add some features to make it more interesting.</p>
+<br>
+<p class="text"> Helicopter Project: This is an event listener that moves a gif across the screen. Typing triggers an animation (and it also says "mayday" in the console). Originally I wanted it to fall also, so you could land it, I will try and incorporate that feature later.</p>
+<br>
+<p class="text">Cool Button Project: This is more of an artistic feature for a website. I'm not using it anywhere because of the plane design I chose instead. I learned how to make this from a guy who was giving an example lesson to become Molly's sub.</p>
+<br>
+<p class="text">The Image Above: This is a fun little project I made with a click event listener. The way it works is it has a variable that increases with each click, and if it is divisible by two one image is shown, if not the other. This is one of my favorite projects.</p>
+<br>
+<p class="text">Bottles Event Listener: This one is a simple project where if you click a bottle is created. I'm hoping to improve it so if you click a certain key or something like that one of the bottles shatters. I don't quite know how to do that yet, but I will try to get it working after break.</p>
+<br>
+<p class="text">Plane Crash: A while ago, I started working on a project where if you clicked on something the computer would give you warnings, and if you continued to click something would happen. I didn't really know where to go from there, though. I finally finished it recently, and I like the product.</p>
 <script type="text/javascript">
 let oval=0
 let open=document.getElementById("open")

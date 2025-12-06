@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		#planeGif{
+			background-image: url(Flying.png);
+			height: 250px;
+			width: 500px;
+			margin-left: auto;
+			margin-right: auto;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+		#hi{
+			text-align: center;
+			font-size: 25px;
+		}
+	</style>
+</head>
+<body>
+<div id="planeGif"></div>
+<div id="hi">Don't click on the plane!</div>
+<script type="text/javascript">
+	    const planeGif = document.getElementById('planeGif');
+		let x=3;
+	function areYouSure() {
+		x=x-1
+		if (x>=0)
+		alert ("Are you sure you want to do that? Clicks remaining:  "+x)
+		if (x==0) {
+		alert ("You shouldn't have done that!")
+		planeGif.style.backgroundImage="url(Crashing.png)"
+		const hi = document.getElementById('hi');
+		hi.textContent = "I told you not to. Look what you've done.";
+		}
+}
+	
+
+	
+	planeGif.addEventListener("click", areYouSure)
+
+
+
+</script>
+
+
+</body>
+</html>

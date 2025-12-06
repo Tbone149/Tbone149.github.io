@@ -5,9 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<style>
+
+		#plane{ 
+			background-image: url(https://t4.ftcdn.net/jpg/03/49/25/69/360_F_349256965_cd3l4ZNzLjiMwn9RMfI10CKPTxOzUCEx.jpg);
+			width: 1600px;
+			height: 800px;
+			background-size: cover;
+			position:fixed;
+		}
 		
 		.fans{
-		
+			margin-top:300px;
+		position:fixed;
 			width:115px;
 			height:115px;
 			background-image: url(fan.png);
@@ -22,38 +31,38 @@
 		}
 
 		#menuLeft{
-			position: absolute;
+			left:200px
+		/*position:fixed;
+
 			bottom: 19.5%;
-			left: 25%;
+			left: 25%;*/
 		}
 		#menuRight{
-			position: absolute;
-			bottom: 19.5%;
-			right: 24.5%;
+			left:600px
+			/*bottom: 19.5%;
+			right: 25%;*/
 		}
 
 		@keyframes fanSpin{
 
 			0%{
-				transform: rotate(360deg);
-			}
-			100%{
 				transform: rotate(0deg);
 			}
+			100%{
+				transform: rotate(360deg);
+			}
 
 		}
 
-		#plane{
-			background-image: url(https://t4.ftcdn.net/jpg/03/49/25/69/360_F_349256965_cd3l4ZNzLjiMwn9RMfI10CKPTxOzUCEx.jpg);
-			width: 100%;
-			height: 650px;
-			background-size:cover;
-		}
-
+		
 
 	</style>
 </head>
 <body>
+<center>
+<div id="plane">
+
+
 <div id="welcomeBanner">Welcome to Theo's website!</div>
 <a href="projects.html">
 <div id="menuLeft" class="fans"></div>
@@ -66,8 +75,9 @@
 
 
 
-<div id="plane"></div>
 
+</div>
+</center>
 
 
 
