@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		#tree{
+			background-image: url(https://media.istockphoto.com/id/471970431/photo/undecorated-christmas-tree.jpg?s=612x612&w=0&k=20&c=XlH1RoYZb5grT-zY_sTjQ10neD0lmu7G1PlbR_Vcvjw=);
+			width: 500px;
+			height: 1000px;
+			background-size: contain;
+			background-repeat: no-repeat;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+
+		#lightSelect{
+			background-image: url(https://jollyandbrightlights.com/cdn/shop/files/PureWhiteC9_982d2ca6-9d0d-4143-9246-8f81612e4117.jpg?v=1699661412&width=1946);
+			width: 100px;
+			height: 100px;
+			margin-left: 33%;
+			background-size: contain;
+			background-repeat: no-repeat;
+
+		}
+		#ornament1Select{
+			width: 100px;
+			height: 100px;
+			/*margin-left: 66%;*/
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-image: url(ornament.png);
+
+		}
+		
+		.ornaments{
+			width:100px;
+			height:100px;
+		background-image: url(ornament.png);
+			position: absolute;
+			background-size:contain;
+			background-repeat: no-repeat;
+
+z-index: 100;
+
+		.lights{
+			width:100px;
+			height:100px;
+		background-image: url(EditedLight.png);
+			position: absolute;
+			background-size:contain;
+			background-repeat: no-repeat;
+
+z-index: 100;
+
+		
+
+
+		}
+
+	</style>
+</head>
+<body>
+<div id="tree"></div>
+<div id="lightSelect">light select</div>
+<div id="ornament1Select">ornament select
+</div>
+	<script type="text/javascript">
+	
+	let lightClicked=0
+	let lightID = 0
+
+
+		// 	lightClicked=lightClicked+1
+
+		// if (lightClicked%2==0) {
+		// 	document.addEventListener("click", placeLight)
+
+		// 	lightID = lightID +1
+		// }
+
+		// }
+
+
+		
+	
+	// lightSelect.addEventListener("click", lightClick)	
+
+	ornament1Select.addEventListener("click", function(){
+		tree.addEventListener("click", function placeOrnament(event){
+			let newDiv = document.createElement('div');
+			newDiv.classList.add("ornaments")
+			// newDiv.id = lightID
+			newDiv.style.left=event.clientX-50+"px"
+			newDiv.style.top=event.clientY-50+"px"
+			document.body.appendChild(newDiv)
+
+		})
+	})
+
+	lightSelect.addEventListener("click", function(){
+		tree.addEventListener("click", function placeLight(event){
+			let newDiv = document.createElement('div');
+			newDiv.classList.add("lights")
+			// newDiv.id = lightID
+			newDiv.style.left=event.clientX-50+"px"
+			newDiv.style.top=event.clientY-50+"px"
+			document.body.appendChild(newDiv)
+
+		})
+	})
+	</script>
+
+
+</body>
+</html>

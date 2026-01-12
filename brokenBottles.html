@@ -11,22 +11,38 @@
 			background-size: contain;
 			width: 50px;
 			height: 100px;
+			display: inline-block;
 		}
 	</style>
 </head>
 <body>
-<script type="text/javascript">
-	function makeBottle() {
-		let bottle=document.createElement("div")
-		bottle.classList.add("bottle")
-		document.body.appendChild(bottle)
-	}
 
-	document.addEventListener("click", makeBottle)
-</script>
 
 <div>Click on the screen to start making bottles!</div>
 
+
+<script type="text/javascript">
+	let clicks =0
+	let randomNumber;
+	let shatter;
+
+	document.addEventListener("click", function makeBottle() {
+		clicks=clicks+1;
+		console.log(clicks + " bottles")
+		let bottle=document.createElement("div")
+		bottle.classList.add("bottle")
+		document.body.appendChild(bottle)
+
+
+		randomNumber=Math.round(clicks*Math.random())
+				console.log(randomNumber)
+
+			bottle.id= clicks;
+
+			shatter= document.getElementById(randomNumber)
+			alert ("i will shatter bottle "+ randomNumber)
+	})
+</script>
 
 </body>
 </html>

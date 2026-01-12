@@ -29,13 +29,14 @@
 	</style>
 </head>
 <body>
+<div>Help Arnold and his friends escape the Predator!</div>
 <div id="helicopter"> </div>
 <script type="text/javascript">
 	helicopter.style.down="0px"
 	helicopter.style.left="0px"
 	document.addEventListener("keypress", function(){
 		console.log("mayday, mayday, mayday")
-		helicopter.style.down=parseInt(helicopter.style.down)+5+"px"
+		helicopter.style.bottom=parseInt(helicopter.style.bottom)-5+"px"
 		helicopter.style.left=parseInt(helicopter.style.left)+5+"px"
 })
 </script>
