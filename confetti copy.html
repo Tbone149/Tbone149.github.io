@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+	.confetti{
+		width: 15px;
+		height: 35px;
+		position: relative;
+		display: inline-block;
+		animation-name: rotating;
+		animation-duration: 4s;
+		animation-iteration-count: infinite;
+	}
+
+	@keyframes rotating {
+  0% {
+    rotate: 0deg;
+    transform: rotateY(-180deg);
+  }
+  50% {
+    rotate: 135deg;
+    transform: rotateY(0deg);
+  }
+  100%{
+  	rotate: 0deg;
+  	transform: rotateY(180deg);
+  }
+}
+
+@keyframes swing3d{
+	from{
+		transform: rotateY(-180deg);
+	}
+	to{
+		transform: rotateY(180deg);
+	}
+}
+
+	</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		function getRandomInt(min, max){
+			const minCeiled = Math.ceil(min);
+			const maxFloored = Math.floor(max);
+			return Math.floor(Math.random()*(maxFloored-minCeiled)+minCeiled)
+		}
+			function makeConfetti(){
+				let square = document.createElement("div")
+				square.classList.add("confetti")
+				document.body.appendChild(square)
+
+				let r = Math.random()*255
+				let g = Math.random()*255
+				let b = Math.random()*255
+
+				let rotation = Math.random() *360
+
+				square.style.backgroundColor = "rgb("+ r +","+ g +","+ b +")"
+				square.style.top = Math.random() * 75 + "px"
+				square.style.left = Math.random()* window.innerWidth + "px"
+				square.style.transform = "rotate("+rotation+"deg)"
+
+			function fall(){
+				let fallFactor = 1
+					square.style.top = parseInt(square.style.top) + fallFactor +"px"
+			}
+
+			setInterval(fall, 10)
+			}
+
+			setInterval(makeConfetti, 400)
+
+
+	</script>
+
+</body>
+</html>
