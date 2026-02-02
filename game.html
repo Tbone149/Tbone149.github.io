@@ -1,86 +1,205 @@
+
+Theodore Moore <c29tm1@dalton.org>
+Thu, Jan 22, 7:29 PM (14 hours ago)
+to me
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flak Defender 2.0</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #111;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-            font-family: 'Courier New', Courier, monospace;
-            overflow: hidden;
-        }
-        #gameContainer {
-            position: relative;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
-        }
-        canvas {
-            background-color: #050510; /* Dark blue night sky */
-            border: 3px solid #444;
-            display: block;
-        }
-        #ui {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            pointer-events: none;
-            text-shadow: 1px 1px 0 #000;
-        }
-        #health-bar-container {
-            width: 200px;
-            height: 20px;
-            background: #333;
-            border: 2px solid #555;
-            margin-top: 10px;
-        }
-        #health-bar {
-            width: 100%;
-            height: 100%;
-            background: #00ff00;
-            transition: width 0.2s, background 0.2s;
-        }
-        #gameOverScreen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
-        button {
-            padding: 15px 30px;
-            font-size: 20px;
-            background: #ff3232;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            margin-top: 20px;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #ff6666;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Anti-Aircraft Shooter Game</title>
+<style>
+/* Basic styles: full-screen canvas with dark background */
+body { margin: 0; overflow: hidden; background: #000; }
+canvas { display: block; background: #667; }
+</style>
 </head>
 <body>
+<canvas id="gameCanvas" width="800" height="600">
+Your browser does not support HTML5 Canvas.
+</canvas>
 
-    <div id="gameContainer">
-        <div id="ui">
-            <h2>SCORE: <span id="score">0</span></h2>
-            <div id="health-bar-container">
-                <div id="health-bar"></div>
-            </div>
-            <p style="font-size: 12px; color: #aaa;">AR
+<script>
+// Anti-Aircraft Shooting Game (HTML5 Canvas + JavaScript)
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const cw = canvas.width, ch = canvas.height;
+
+// Turret object: position at bottom-center, with width, barrel length, and current angle
+let turret = {
+x: cw/2, // pivot x (bottom center)
+y: ch, // pivot y (bottom of canvas)
+width: 20, // turret base/barrel width
+height: 40, // barrel length
+angle: -Math.PI/2 // initial angle: straight up (-90 degrees in radians)
+};
+
+// Arrays to store active bullets and planes
+let bullets = [];
+let planes = [];
+
+// Game state
+let score = 0;
+let escaped = 0;
+const maxEscapes = 3; // max allowed escapes before game over
+let gameOver = false;
+
+// Control state flags
+let keys = { ArrowLeft: false, ArrowRight: false };
+
+// Listen for key presses to move turret and shoot
+window.addEventListener("keydown", function(e) {
+// Prevent arrow keys and space from scrolling the page
+if (e.code === "ArrowLeft" || e.code === "ArrowRight" || e.code === "Space") {
+e.preventDefault();
+}
+if (e.code === "ArrowLeft") keys.ArrowLeft = true;
+if (e.code === "ArrowRight") keys.ArrowRight = true;
+if (e.code === "Space") {
+// Fire a bullet when space is pressed
+shootBullet();
+}
+});
+window.addEventListener("keyup", function(e) {
+if (e.code === "ArrowLeft") keys.ArrowLeft = false;
+if (e.code === "ArrowRight") keys.ArrowRight = false;
+// We do not need to track Space on keyup here
+});
+
+// Create a bullet at the tip of the turret barrel
+function shootBullet() {
+const bulletSpeed = 8;
+// Calculate bullet start position at end of barrel:
+const bx = turret.x + Math.cos(turret.angle) * turret.height;
+const by = turret.y + Math.sin(turret.angle) * turret.height;
+bullets.push({
+x: bx,
+y: by,
+vx: bulletSpeed * Math.cos(turret.angle),
+vy: bulletSpeed * Math.sin(turret.angle),
+radius: 3
+});
+}
+
+// Spawn a new plane at random height, from left or right
+function spawnPlane() {
+const planeW = 40, planeH = 20;
+const speed = Math.random() * 2 + 1; // random speed 1..3
+const y = Math.random() * (ch/4) + 20; // random y between 20 and ch/4+20
+if (Math.random() < 0.5) {
+// From left to right
+planes.push({ x: -planeW, y: y, width: planeW, height: planeH, vx: speed });
+} else {
+// From right to left
+planes.push({ x: cw, y: y, width: planeW, height: planeH, vx: -speed });
+}
+}
+
+// Main game loop
+function gameLoop() {
+update();
+draw();
+if (!gameOver) {
+requestAnimationFrame(gameLoop);
+} else {
+// Draw "Game Over" on final frame
+ctx.fillStyle = "red";
+ctx.font = "48px sans-serif";
+ctx.fillText("GAME OVER", cw/2 - 150, ch/2);
+}
+}
+
+// Update game state each frame
+function update() {
+// Rotate turret based on arrow keys
+const rotationSpeed = 0.04; // radians per frame
+if (keys.ArrowLeft) turret.angle -= rotationSpeed;
+if (keys.ArrowRight) turret.angle += rotationSpeed;
+// Clamp angle so turret only rotates between -PI (left) and 0 (right)
+turret.angle = Math.min(0, Math.max(-Math.PI, turret.angle));
+
+// Randomly spawn new planes
+if (Math.random() < 0.01) {
+spawnPlane();
+}
+
+// Update bullets: move them and remove if off-screen
+for (let i = bullets.length - 1; i >= 0; i--) {
+let b = bullets[i];
+b.x += b.vx;
+b.y += b.vy;
+if (b.x < 0 || b.x > cw || b.y < 0 || b.y > ch) {
+bullets.splice(i, 1);
+}
+}
+
+// Update planes: move them and check for escapes
+for (let i = planes.length - 1; i >= 0; i--) {
+let p = planes[i];
+p.x += p.vx;
+// If plane moves completely off screen, count as escaped
+if (p.x > cw || p.x + p.width < 0) {
+planes.splice(i, 1);
+escaped++;
+if (escaped >= maxEscapes) {
+gameOver = true;
+}
+}
+}
+
+// Check collisions: bullet vs plane
+for (let i = bullets.length - 1; i >= 0; i--) {
+for (let j = planes.length - 1; j >= 0; j--) {
+let b = bullets[i], p = planes[j];
+// Simple point-rectangle collision
+if (b.x >= p.x && b.x <= p.x + p.width &&
+b.y >= p.y && b.y <= p.y + p.height) {
+// Hit detected
+bullets.splice(i, 1);
+planes.splice(j, 1);
+score++;
+break; // exit inner loop, bullet is gone
+}
+}
+}
+}
+
+// Draw all game objects and UI
+function draw() {
+ctx.clearRect(0, 0, cw, ch);
+
+// Draw turret
+ctx.save();
+ctx.translate(turret.x, turret.y);
+ctx.rotate(turret.angle);
+ctx.fillStyle = "gray";
+// Draw a rectangle as the turret barrel extending upward from (0,0)
+ctx.fillRect(-turret.width/2, -turret.height, turret.width, turret.height);
+ctx.restore();
+
+// Draw bullets as red circles
+ctx.fillStyle = "red";
+bullets.forEach(function(b) {
+ctx.beginPath();
+ctx.arc(b.x, b.y, b.radius, 0, 2 * Math.PI);
+ctx.fill();
+});
+
+// Draw planes as white rectangles
+ctx.fillStyle = "white";
+planes.forEach(function(p) {
+ctx.fillRect(p.x, p.y, p.width, p.height);
+});
+
+// Draw score and escaped count
+ctx.fillStyle = "white";
+ctx.font = "20px sans-serif";
+ctx.fillText("Score: " + score, 10, 30);
+ctx.fillText("Escaped: " + escaped, 10, 60);
+}
+
+// Start the game
+requestAnimationFrame(gameLoop);
+</script>
+</body>
+</html>

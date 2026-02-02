@@ -8,8 +8,8 @@
 	.confetti{
 		width: 15px;
 		height: 35px;
-		position: relative;
-		display: inline-block;
+		position: absolute;
+		/*display: inline-block;*/
 		animation-name: rotating;
 		animation-duration: 4s;
 		animation-iteration-count: infinite;
@@ -42,39 +42,70 @@
 	</style>
 </head>
 <body>
+	<div id="confettiCounter">0</div>
+	<button id="btn">-.. .-. --- .--. / -.-. --- -. ..-. . - - ..</button>
+	<input type="color" value="#f0e10e" id="colorPicker">
+	<input type="range" min="1" max="10" step="1" value="10" id="slider">
+	
+
 
 	<script type="text/javascript">
+		let counter = 0
+		let dropConfettiBtn = document.getElementById("btn")
+		// let colors = ["blue", "green", "red", "yellow"];
+		let colors = ["#BAF2BB", "#BAF2D8", "#BAD7F2", "#F2BAC9"];
+		let colorPicker = document.getElementById("colorPicker")
+		let slider = document.getElementById("slider")
+		console.log(slider.value)
 		function getRandomInt(min, max){
 			const minCeiled = Math.ceil(min);
 			const maxFloored = Math.floor(max);
 			return Math.floor(Math.random()*(maxFloored-minCeiled)+minCeiled)
 		}
+
+
 			function makeConfetti(){
+				counter = counter+1
+				const hi = document.getElementById("confettiCounter");
+				hi.innerText = counter;
 				let square = document.createElement("div")
 				square.classList.add("confetti")
 				document.body.appendChild(square)
 
-				let r = Math.random()*255
-				let g = Math.random()*255
-				let b = Math.random()*255
+				// let r = Math.random()*255
+				// let g = Math.random()*255
+				// let b = Math.random()*255
 
 				let rotation = Math.random() *360
 
-				square.style.backgroundColor = "rgb("+ r +","+ g +","+ b +")"
-				square.style.top = Math.random() * 75 + "px"
+				// square.style.backgroundColor = colors[Math.round(Math.random()*4)]
+				square.style.backgroundColor = colorPicker.value
+				square.style.top = Math.random() * window.innerHeight + "px"
 				square.style.left = Math.random()* window.innerWidth + "px"
 				square.style.transform = "rotate("+rotation+"deg)"
 
 			function fall(){
 				let fallFactor = 1
 					square.style.top = parseInt(square.style.top) + fallFactor +"px"
+					if (parseInt(square.style.top)===window.innerHeight) {
+						square.remove()
+						counter = counter-1
+					}
 			}
 
 			setInterval(fall, 10)
 			}
 
 			setInterval(makeConfetti, 400)
+			for(let i = 0; i < slider.value; i++) {
+					makeConfetti()
+}
 
+	dropConfettiBtn.addEventListener("click", function(){
+		for (let i=0; i<10; i++){
+			makeConfetti()
+		}
+	})
 
 	</script>
 
