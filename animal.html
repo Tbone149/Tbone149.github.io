@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<div id="name">*</div>
+<br>
+<div id="company">*</div>
+<br>
+<div id="status">*</div>
+<input type="text" id="person">
+<button id="addPerson">Execute</button>
+<script>
+//name: Highway Hi-Fi
+//company: Chrysler
+//status: defunct
+//idea: stupid
+let executeBtn = document.getElementById("addPerson")
+let input = document.getElementById("person")
+
+
+
+	let record = {
+		name: "Highway Hi-Fi",
+		company: "Chrysler",
+		status: "Defunct"
+
+	}
+
+	let phonograph1 = {
+		name: "phonograph",
+		company: "Thomas Edison",
+		status: "Still Works"
+
+	}
+	let photophone1 = {
+		name: "photophone",
+		company: "Volta Laboratory Association",
+		status: "Not used"
+
+	}
+	let recordPlayers = [record, phonograph1, photophone1]
+	console.log(recordPlayers[1].status)
+	document.getElementById("name")
+	document.getElementById("company")
+	document.getElementById("status")
+	
+
+	executeBtn.addEventListener("click", function() {
+		// console.log(input.value)
+		let matchedRecord = recordPlayers.filter(record => record.name === input.value)
+		console.log(matchedRecord)
+		document.getElementById("name").textContent = matchedRecord[0].name
+		document.getElementById("company").textContent = matchedRecord[0].company
+		document.getElementById("status").textContent = matchedRecord[0].status
+	})
+
+	// if (personInput.value == ("phonograph")) {
+	// 	name.textContent = phonograph.status
+
+	// 	}
+
+	// for (var i = 0; i < recordPlayers.length; i++) {
+	// 		let div = document.createElement("div")
+	// 		let nameDiv = document.createElement("div")
+	// 		nameDiv.textContent = recordPlayers[i].name
+	// 		let companyDiv = document.createElement("div")
+	// 		companyDiv.textContent = recordPlayers[i].company
+	// 		let statusDiv = document.createElement("div")
+	// 		statusDiv.textContent = recordPlayers[i].status
+	// 		div.appendChild(nameDiv)
+	// 		div.appendChild(companyDiv)
+	// 		div.appendChild(statusDiv)
+	// 		document.body.appendChild(div)
+	// 		// document.body.append()
+	// 		// document.body.append()
+	// 		// setAttribute("id", )
+	// 	}
+
+</script>
+
+
+
+
+</body>
+</html>
