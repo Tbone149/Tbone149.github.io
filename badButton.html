@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+</head>
+<body>
+<button id="badbutton">Please click to proceed</button>
+<script>
+	document.body.addEventListener("mousemove", function(event) {
+  		mousex = event.clientX;
+  		mousey = event.clientY;
+	});
+	let badbutton = document.getElementById("badbutton")
+
+	badbutton.addEventListener("click", function(){
+		alert("how?")
+	})
+	badbutton.addEventListener("mouseover", function(){
+		badbutton.style.position="absolute"
+		badbutton.style.left=Math.random()*window.innerWidth+"px"
+		badbutton.style.top=Math.random()*window.innerHeight+"px"
+		badbutton.style.rotate=Math.random()*361+"deg"
+	})
+	badbutton.addEventListener("mouseout", function(){
+		console.log("over")
+	})
+</script>
+
+</body>
+</html>
