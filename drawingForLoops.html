@@ -22,12 +22,26 @@ function setup() {
 //   		circle(i,50,50,50)
 // 	}
 for(let i=0; i<9; i++){
+	//d=dist(x,y,mouseX,mouseY)
 	for(let j=0; j<11; j++){
 		let x=i*100
 		//setTimeout(1000)
 		let y = j*100
-		circle(x,j*100,100)
-		text(i+","+j, x, y)
+		fill(124,35,0)
+		circle(x-23,j*100,80)
+		line(x,y,x-40,y-30)
+		triangle(x+22,y+22,x-50,y-63,x-70,y-12)
+		if (i%2===0){
+			line(x-20,y-60,x-70,y+40)
+		}
+		// if (d<50){
+		// 	fill(0)
+		// 	rect(x,y,50,25)
+		// } else{
+
+		// }
+		
+		//text(i+","+j, x, y)
 }
 }
 
